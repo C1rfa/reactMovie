@@ -3,7 +3,10 @@ import axios from 'axios';
 
 import MovieList from "./../components/MovieList";
 import Preloader from "./Preloader";
+import Error from "./Error";
 import Search from "./../components/Search";
+
+const API_KEY = process.env.REACT_APP_API_KEY;
 
 class Main extends React.Component {
     constructor(props) {
@@ -11,15 +14,28 @@ class Main extends React.Component {
 
         this.state = {
             movies: [],
-            isLoading: true,
+            isLoading: false,
             response: '',
-            apiKey: '2d4d6c82',
             error: '',
         }
+
+        this.search = this.search.bind(this);
     }
 
-    componentDidMount() {
-        axios.get(`http://www.omdbapi.com/?s=mad max&apikey=${this.state.apiKey}`)
+    search(search, type) {
+        const getHttpString = (search, type) => {
+            let str = `http://www.omdbapi.com/?apikey=${API_KEY}&s=${search}`;
+            
+            if(type) {
+                str += `&type=${type}`;
+            }
+
+            return str;
+        }
+
+        if(search) {
+            this.setState({ isLoading: !this.state.isLoading })
+            axios.get(getHttpString(search,type))
             .then(response => response.data) 
             .then( data => {
                 this.setState({
@@ -35,6 +51,7 @@ class Main extends React.Component {
                     error: error.message,
                 })
             });
+        }
     }
 
 
@@ -43,8 +60,8 @@ class Main extends React.Component {
 
         return(
             <main className="container content">
-                <Search/>
-                {  isLoading? <Preloader/> : response === "True" ? <MovieList movies={movies}/> : <span><i className="material-icons large">error</i>{error}</span> }
+                <Search searchFunc={ this.search }/>
+                {  isLoading ? <Preloader/> : response === "True" ? <MovieList movies={movies}/> : error ? <Error error={ error }/> : <div className="message">Type something in search box</div> }
             </main>
         )
     }

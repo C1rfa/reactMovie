@@ -7,12 +7,11 @@ class Search extends React.Component {
 
         this.state = {
             text: '',
-            movie: false,
-            series: false,
-            game: false,
+            type: null,
         };
 
         this.inputHandler = this.inputHandler.bind(this);
+        this.submitHandler = this.submitHandler.bind(this);
     }
 
 
@@ -24,20 +23,28 @@ class Search extends React.Component {
                 this.setState({[e.target.name]: e.target.value});
                 break;
             case 'radio':
-                this.setState({[e.target.id]: !this.state[e.target.id]});
+                this.setState({type: e.target.id === 'all' ? null : e.target.id});
                 break;
             default:
                 break;
         }
     }
 
+    submitHandler(e) {
+        e.preventDefault();
+
+        const { type, text } = this.state;
+
+        this.props.searchFunc(text, type);
+    }
+
     render() {
 
-        const {text, movie, series, game} = this.state;
+        const {text, type} = this.state;
 
         return(
             <div className="row">
-                <form>
+                <form onSubmit={ this.submitHandler }>
                   <div className="row">
                     <div className="input-field col s12">
                       <i className="material-icons prefix">search</i>
@@ -45,19 +52,25 @@ class Search extends React.Component {
                     </div>
                     <p className="col s-6">
                         <label>
-                          <input name="type" id="movie" type="radio" onChange={ this.inputHandler } checked={ movie }/>
+                          <input name="type" id="all" type="radio" onChange={ this.inputHandler } checked={ type === null }/> 
+                          <span>All</span>
+                        </label>
+                    </p>
+                    <p className="col s-6">
+                        <label>
+                          <input name="type" id="movie" type="radio" onChange={ this.inputHandler }/>
                           <span>Movie</span>
                         </label>
                     </p>
                     <p className="col s-6">
                         <label>
-                          <input name="type" id="series" type="radio" onChange={ this.inputHandler } checked={ series }/>
+                          <input name="type" id="series" type="radio" onChange={ this.inputHandler }/>
                           <span>Series</span>
                         </label>
                     </p>
                     <p className="col s-6">
                         <label>
-                          <input name="type" id="game" type="radio" onChange={ this.inputHandler } checked={ game }/>
+                          <input name="type" id="game" type="radio" onChange={ this.inputHandler }/>
                           <span>Video Game</span>
                         </label>
                     </p>
