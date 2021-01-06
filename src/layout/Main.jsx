@@ -24,7 +24,7 @@ class Main extends React.Component {
 
     search(search, type) {
         const getHttpString = (search, type) => {
-            let str = `http://www.omdbapi.com/?apikey=${API_KEY}&s=${search}`;
+            let str = `https://www.omdbapi.com/?apikey=${API_KEY}&s=${search}`;
             
             if(type) {
                 str += `&type=${type}`;
