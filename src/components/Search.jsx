@@ -35,7 +35,10 @@ class Search extends React.Component {
 
         const { type, text } = this.state;
 
-        this.props.searchFunc(text, type);
+        if(text) {
+            this.props.searchFunc(text, type);
+        }
+        
     }
 
     render() {
