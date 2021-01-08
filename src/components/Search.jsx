@@ -1,93 +1,73 @@
 import React from 'react';
 
-class Search extends React.Component {
+export const Search = props => {
+    const [text, setText] = React.useState('');
+    const [type, setType] = React.useState(null);
+    const searchFunc = props.searchFunc;
 
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            text: '',
-            type: null,
-        };
-
-        this.inputHandler = this.inputHandler.bind(this);
-        this.submitHandler = this.submitHandler.bind(this);
-    }
-
-
-    inputHandler(e) {
+    const inputHandler = e => {
         const type = e.target.type;
 
         switch(type) {
             case 'text':
-                this.setState({[e.target.name]: e.target.value});
+                setText(e.target.value);
                 break;
             case 'radio':
-                this.setState({type: e.target.id === 'all' ? null : e.target.id});
+                setType(e.target.id === 'all' ? null : e.target.id);
                 break;
             default:
                 break;
         }
-    }
+    };
 
-    submitHandler(e) {
+    const submitHandler = e => {
         e.preventDefault();
 
-        const { type, text } = this.state;
-
         if(text) {
-            this.props.searchFunc(text, type);
+            searchFunc(text, type);
         }
-        
-    }
+    };
 
-    render() {
-
-        const {text, type} = this.state;
-
-        return(
-            <div className="row">
-                <form onSubmit={ this.submitHandler }>
-                  <div className="row">
-                    <div className="input-field col s12">
-                      <i className="material-icons prefix">search</i>
-                      <input placeholder="search" type="text" name="text" value={ text } onChange={ this.inputHandler } className="validate"/>
-                    </div>
-                    <p className="col s-6">
-                        <label>
-                          <input name="type" id="all" type="radio" onChange={ this.inputHandler } checked={ type === null }/> 
-                          <span>All</span>
-                        </label>
-                    </p>
-                    <p className="col s-6">
-                        <label>
-                          <input name="type" id="movie" type="radio" onChange={ this.inputHandler }/>
-                          <span>Movie</span>
-                        </label>
-                    </p>
-                    <p className="col s-6">
-                        <label>
-                          <input name="type" id="series" type="radio" onChange={ this.inputHandler }/>
-                          <span>Series</span>
-                        </label>
-                    </p>
-                    <p className="col s-6">
-                        <label>
-                          <input name="type" id="game" type="radio" onChange={ this.inputHandler }/>
-                          <span>Video Game</span>
-                        </label>
-                    </p>
-                  </div>
-                  <div className="row">
-                        <button className="red btn waves-effect waves-light col s12" type="submit" name="action">
-                            Search
-                            <i className="material-icons right">search</i>
-                        </button>
-                  </div>
-                </form>
-            </div>
-        )
-    }
-}
-
-export default Search;
+    return(
+        <div className="row">
+            <form onSubmit={ submitHandler }>
+              <div className="row">
+                <div className="input-field col s12">
+                  <i className="material-icons prefix">search</i>
+                  <input placeholder="search" type="text" name="text" value={ text } onChange={ inputHandler } className="validate"/>
+                </div>
+                <p className="col s-6">
+                    <label>
+                      <input name="type" id="all" type="radio" onChange={ inputHandler } checked={ type === null }/> 
+                      <span>All</span>
+                    </label>
+                </p>
+                <p className="col s-6">
+                    <label>
+                      <input name="type" id="movie" type="radio" onChange={ inputHandler }/>
+                      <span>Movie</span>
+                    </label>
+                </p>
+                <p className="col s-6">
+                    <label>
+                      <input name="type" id="series" type="radio" onChange={ inputHandler }/>
+                      <span>Series</span>
+                    </label>
+                </p>
+                <p className="col s-6">
+                    <label>
+                      <input name="type" id="game" type="radio" onChange={ inputHandler }/>
+                      <span>Video Game</span>
+                    </label>
+                </p>
+              </div>
+              <div className="row">
+                    <button className="red btn waves-effect waves-light col s12" type="submit" name="action">
+                        Search
+                        <i className="material-icons right">search</i>
+                    </button>
+              </div>
+            </form>
+        </div>
+    );
+};

@@ -1,61 +1,48 @@
 import React from 'react';
 
+export const Pagination = props => {
+    const { currentPage, countPage, pageFunc } = props;
 
-class Pagination extends React.Component {
+    let leftBound;
+    let rightBound;
+    let pages = [];
 
-
-    clickHanlder(e) {
-
-        const { countPage } = this.props;
-
+    const clickHanlder = e => {
         if(e.target.closest('li').id === 'fastForward') {
-            this.props.pageFunc(countPage);
+            pageFunc(countPage);
         } else if (e.target.closest('li').id === 'fastBackward') {
-            this.props.pageFunc(1);
+            pageFunc(1);
         } else {
-            this.props.pageFunc(e.target.innerHTML);
+            pageFunc(e.target.innerHTML);
         }
     }
 
-
-    render() {
-        const { currentPage, countPage} = this.props;
-
-        let leftBound;
-        let rightBound;
-        let pages = [];
-
-        if(countPage > 5) {
-            if(currentPage + 4 > countPage ) {
-                leftBound = countPage - 4;
-                rightBound = countPage;
-            } else {
-                leftBound = currentPage;
-                rightBound = currentPage + 4;
-            }
-        } else {
-            leftBound = 1;
+    if(countPage > 5) {
+        if(currentPage + 4 > countPage ) {
+            leftBound = countPage - 4;
             rightBound = countPage;
+        } else {
+            leftBound = currentPage;
+            rightBound = currentPage + 4;
         }
-
-        for (let i = leftBound; i <= rightBound; i++ ) {
-            pages.push(<li className={currentPage === i ? "active red" : "waves-effect" } key={ i } onClick={ this.clickHanlder.bind(this) }>{ i }</li>);
-        }
-
-
-        return(
-            <div className="message">
-                <ul className="pagination">
-                    <li className={ currentPage === 1 ? "disabled" : "waves-effect" } id="fastBackward" onClick={ this.clickHanlder.bind(this) }><i className="material-icons">chevron_left</i></li>
-                        { pages }
-                    <li className={ currentPage === 1 ? "disabled" : "waves-effect" } id="fastForward" onClick={ this.clickHanlder.bind(this) }><i className="material-icons">chevron_right</i></li>
-                </ul> 
-            </div>
-            
-        );
+    } else {
+        leftBound = 1;
+        rightBound = countPage;
+    }
+    
+    for (let i = leftBound; i <= rightBound; i++ ) {
+        pages.push(<li className={currentPage === i ? "active red" : "waves-effect" } key={ i } onClick={ clickHanlder }>{ i }</li>);
     }
 
 
-}
-
-export default Pagination;
+    return(
+        <div className="message">
+            <ul className="pagination">
+                <li className={ currentPage === 1 ? "disabled" : "waves-effect" } id="fastBackward" onClick={ clickHanlder }><i className="material-icons">chevron_left</i></li>
+                    { pages }
+                <li className={ currentPage === 1 ? "disabled" : "waves-effect" } id="fastForward" onClick={ clickHanlder }><i className="material-icons">chevron_right</i></li>
+            </ul> 
+        </div>
+        
+    );
+};
