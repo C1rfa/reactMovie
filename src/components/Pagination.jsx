@@ -6,16 +6,14 @@ class Pagination extends React.Component {
 
     clickHanlder(e) {
 
-        const { type, searchText, countPage } = this.props;
+        const { countPage } = this.props;
 
-        console.log(e.target.innerHTML);
-
-        if(e.target.id === 'fastForward') {
-            this.props.pageFunc(searchText, type, 1);
-        } else if (e.target.id === 'fastBackward') {
-            this.props.pageFunc(searchText, type, countPage);
+        if(e.target.closest('li').id === 'fastForward') {
+            this.props.pageFunc(countPage);
+        } else if (e.target.closest('li').id === 'fastBackward') {
+            this.props.pageFunc(1);
         } else {
-            this.props.pageFunc(searchText, type, e.target.innerHTML);
+            this.props.pageFunc(e.target.innerHTML);
         }
     }
 
@@ -41,13 +39,13 @@ class Pagination extends React.Component {
         }
 
         for (let i = leftBound; i <= rightBound; i++ ) {
-            pages.push(<li className={currentPage === i ? "active" : "waves-effect" } key={ i } onClick={ this.clickHanlder.bind(this) }>{ i }</li>);
+            pages.push(<li className={currentPage === i ? "active red" : "waves-effect" } key={ i } onClick={ this.clickHanlder.bind(this) }>{ i }</li>);
         }
 
 
         return(
-            <div className="row s12">
-                <ul className="pagination ">
+            <div className="message">
+                <ul className="pagination">
                     <li className={ currentPage === 1 ? "disabled" : "waves-effect" } id="fastBackward" onClick={ this.clickHanlder.bind(this) }><i className="material-icons">chevron_left</i></li>
                         { pages }
                     <li className={ currentPage === 1 ? "disabled" : "waves-effect" } id="fastForward" onClick={ this.clickHanlder.bind(this) }><i className="material-icons">chevron_right</i></li>

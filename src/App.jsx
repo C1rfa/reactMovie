@@ -8,7 +8,7 @@ import Main from "./layout/Main";
 class App extends React.Component {
     render() {
         return(
-            <div className="App">
+            <div>
                 <Header/>
                 <Main/>
                 <Footer/>

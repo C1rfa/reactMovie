@@ -20,13 +20,22 @@ class Main extends React.Component {
             isLoading: false,
             response: '',
             error: '',
-            currentSearch: '',
             totalResults:'',
             currentPage: '',
-            type: '',
         }
 
         this.sendRequest = this.sendRequest.bind(this);
+        this.search = this.search.bind(this);
+    }
+
+
+    search(search, type) {
+        this.onPage = page => {
+            console.log(page);
+            this.sendRequest(search, type, page); 
+        };
+
+        this.sendRequest(search, type);
     }
 
     sendRequest(search, type, page) {
@@ -54,8 +63,6 @@ class Main extends React.Component {
                     isLoading: false,
                     error: data.Error,
                     totalResults: parseInt(data.totalResults),
-                    currentSearch: search,
-                    type: type ? type : '',
                     currentPage: !page ? 1 : +page,
                 })
             }).catch( error => {
@@ -69,12 +76,12 @@ class Main extends React.Component {
 
 
     render() {
-        const { response, error, movies, isLoading, totalResults, currentSearch, currentPage, type } = this.state;
+        const { response, error, movies, isLoading, totalResults, currentPage } = this.state;
 
         return(
             <main className="container content">
-                <Search searchFunc={ this.sendRequest }/>
-                {  isLoading ? <Preloader/> : response === "True" ? <> <MovieList movies={movies}/> <Pagination type={ type } pageFunc={ this.sendRequest } searchText={ currentSearch } currentPage={ currentPage } countPage={ Math.ceil(totalResults / 10) }/> </> : error ? <Error error={ error }/> : <div className="message">Type something in search box</div> }
+                <Search searchFunc={ this.search }/>
+                {  isLoading ? <Preloader/> : response === "True" ? <> <MovieList movies={movies}/> <Pagination pageFunc={ this.onPage } currentPage={ currentPage } countPage={ Math.ceil(totalResults / 10) }/> </> : error ? <Error error={ error }/> : <div className="message">Type something in search box</div> }
             </main>
         )
     }
