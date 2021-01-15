@@ -1,20 +1,20 @@
 import React from 'react';
 
+import { MovieContext } from './../context';
+
 export const Search = props => {
-    const [text, setText] = React.useState('');
-    const [type, setType] = React.useState(null);
-    const searchFunc = props.searchFunc;
+    const { searchText, searchType, changeSearchText, changeSearchType, sendRequest } = React.useContext(MovieContext);
 
     const inputHandler = e => {
         const type = e.target.type;
 
         switch(type) {
             case 'text':
-                setText(e.target.value);
-                break;
+              changeSearchText(e.target.value);
+              break;
             case 'radio':
-                setType(e.target.id === 'all' ? null : e.target.id);
-                break;
+              changeSearchType(e.target.id === 'all' ? null : e.target.id);
+              break;
             default:
                 break;
         }
@@ -23,8 +23,8 @@ export const Search = props => {
     const submitHandler = e => {
         e.preventDefault();
 
-        if(text) {
-            searchFunc(text, type);
+        if(searchText) {
+          sendRequest();
         }
     };
 
@@ -34,11 +34,11 @@ export const Search = props => {
               <div className="row">
                 <div className="input-field col s12">
                   <i className="material-icons prefix">search</i>
-                  <input placeholder="search" type="text" name="text" value={ text } onChange={ inputHandler } className="validate"/>
+                  <input placeholder="search" type="text" name="text" value={ searchText } onChange={ inputHandler } className="validate"/>
                 </div>
                 <p className="col s-6">
                     <label>
-                      <input name="type" id="all" type="radio" onChange={ inputHandler } checked={ type === null }/> 
+                      <input name="type" id="all" type="radio" onChange={ inputHandler } checked={ searchType === null }/> 
                       <span>All</span>
                     </label>
                 </p>
