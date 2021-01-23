@@ -6,7 +6,7 @@ export const Header = () => {
         <div className="nav-wrapper">
           <a href="#!" className="brand-logo"><i className="material-icons large">local_movies</i>Movie App on React</a>
           <ul id="nav-mobile" className="right hide-on-med-and-down">
-            <li><a href="https://github.com/C1rfa/reactMovieFunc">Repository</a></li>
+            <li><a href="https://github.com/C1rfa/reactMovie/tree/movieProjectFunc">Repository</a></li>
           </ul>
         </div>
     </nav>
