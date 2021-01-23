@@ -25,5 +25,5 @@ All again, this is just my small first reactr project.
 
 2 - Movie Project Func - содержит исходный код проекта, построенного с использованием функциональных компонентов, контекста и хуков.
 
-Здесь используется API Open Movie Database и Materialize framework.
+Здесь используются API Open Movie Database и Materialize framework.
 
