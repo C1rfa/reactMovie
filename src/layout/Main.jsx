@@ -79,7 +79,7 @@ class Main extends React.Component {
         const { response, error, movies, isLoading, totalResults, currentPage } = this.state;
 
         return(
-            <main className="container content">
+            <main className="content">
                 <Search searchFunc={ this.search }/>
                 {  isLoading ? <Preloader/> : response === "True" ? <> <MovieList movies={movies}/> <Pagination pageFunc={ this.onPage } currentPage={ currentPage } countPage={ Math.ceil(totalResults / 10) }/> </> : error ? <Error error={ error }/> : <div className="message">Type something in search box</div> }
             </main>

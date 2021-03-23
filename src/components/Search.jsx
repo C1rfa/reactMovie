@@ -1,5 +1,7 @@
 import React from 'react';
 
+import searchPic from './../img/magnifier.svg';
+
 class Search extends React.Component {
 
     constructor(props) {
@@ -46,46 +48,37 @@ class Search extends React.Component {
         const {text, type} = this.state;
 
         return(
-            <div className="row">
-                <form onSubmit={ this.submitHandler }>
-                  <div className="row">
-                    <div className="input-field col s12">
-                      <i className="material-icons prefix">search</i>
-                      <input placeholder="search" type="text" name="text" value={ text } onChange={ this.inputHandler } className="validate"/>
+            <form className="search-form" onSubmit={ this.submitHandler }>
+                <div className="field-row">
+                    <input placeholder="Type Something And Press Search" type="text" name="text" value={ text } onChange={ this.inputHandler }/>
+                    <div className="search-icon-wrap">
+                        <img className="search-icon" src={ searchPic } alt="search"/>
                     </div>
-                    <p className="col s-6">
-                        <label>
-                          <input name="type" id="all" type="radio" onChange={ this.inputHandler } checked={ type === null }/> 
-                          <span>All</span>
-                        </label>
-                    </p>
-                    <p className="col s-6">
-                        <label>
-                          <input name="type" id="movie" type="radio" onChange={ this.inputHandler }/>
-                          <span>Movie</span>
-                        </label>
-                    </p>
-                    <p className="col s-6">
-                        <label>
-                          <input name="type" id="series" type="radio" onChange={ this.inputHandler }/>
-                          <span>Series</span>
-                        </label>
-                    </p>
-                    <p className="col s-6">
-                        <label>
-                          <input name="type" id="game" type="radio" onChange={ this.inputHandler }/>
-                          <span>Video Game</span>
-                        </label>
-                    </p>
-                  </div>
-                  <div className="row">
-                        <button className="red btn waves-effect waves-light col s12" type="submit" name="action">
-                            Search
-                            <i className="material-icons right">search</i>
-                        </button>
-                  </div>
-                </form>
-            </div>
+                </div>
+                <div className="field-col">
+                    <label>
+                        <input name="type" id="all" type="radio" onChange={ this.inputHandler } checked={ type === null }/> 
+                        <span>All</span>
+                    </label>
+                    <label>
+                        <input name="type" id="movie" type="radio" onChange={ this.inputHandler }/>
+                        <span>Movie</span>
+                    </label>
+                    <label>
+                        <input name="type" id="series" type="radio" onChange={ this.inputHandler }/>
+                        <span>Series</span>
+                    </label>
+                    <label>
+                        <input name="type" id="game" type="radio" onChange={ this.inputHandler }/>
+                        <span>Video Game</span>
+                    </label>
+                </div>
+                <div className="field-row">
+                    <button className="btn" type="submit" name="action">
+                         Search
+                    </button>
+                </div>
+            </form>
         )
     }
 }
