@@ -4,8 +4,8 @@ class Preloader extends React.Component {
 
     render() {
         return(
-            <div className="progress red">
-                <div className="indeterminate"></div>
+            <div className="preloader">
+                <div className="box2"></div>
             </div>
         )
     }

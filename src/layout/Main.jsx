@@ -77,7 +77,6 @@ class Main extends React.Component {
 
     render() {
         const { response, error, movies, isLoading, totalResults, currentPage } = this.state;
-
         return(
             <main className="content">
                 <Search searchFunc={ this.search }/>

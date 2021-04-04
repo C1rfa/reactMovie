@@ -1,5 +1,7 @@
 import React from 'react';
 
+import rightPic from './../img/right-arrow.svg';
+import leftPic from './../img/left-arrow.svg';
 
 class Pagination extends React.Component {
 
@@ -39,19 +41,16 @@ class Pagination extends React.Component {
         }
 
         for (let i = leftBound; i <= rightBound; i++ ) {
-            pages.push(<li className={currentPage === i ? "active red" : "waves-effect" } key={ i } onClick={ this.clickHanlder.bind(this) }>{ i }</li>);
+            pages.push(<li className={currentPage === i ? "active-page" : "page" } key={ i } onClick={ this.clickHanlder.bind(this) }>{ i }</li>);
         }
 
 
         return(
-            <div className="message">
-                <ul className="pagination">
-                    <li className={ currentPage === 1 ? "disabled" : "waves-effect" } id="fastBackward" onClick={ this.clickHanlder.bind(this) }><i className="material-icons">chevron_left</i></li>
-                        { pages }
-                    <li className={ currentPage === 1 ? "disabled" : "waves-effect" } id="fastForward" onClick={ this.clickHanlder.bind(this) }><i className="material-icons">chevron_right</i></li>
-                </ul> 
-            </div>
-            
+            <ul className="pagination">
+                <li className={ currentPage === 1 ? "disabled-page" : "page-backward" } id="fastBackward" onClick={ this.clickHanlder.bind(this) }><img className="page-icon" alt='backward' src={ leftPic }></img></li>
+                    { pages }
+                <li className={ currentPage === countPage ? "disabled-page" : "page-forward" } id="fastForward" onClick={ this.clickHanlder.bind(this) }><img className="page-icon" alt='forward' src={ rightPic }></img></li>
+            </ul> 
         );
     }
 
