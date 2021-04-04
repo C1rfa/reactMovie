@@ -13,7 +13,7 @@ export const Main = props => {
     const { isLoading, response, error } = React.useContext(MovieContext);
 
     return (
-        <main className="container content">
+        <main className="content">
             <Search/>
             {  isLoading ? 
                 <Preloader/> : response === "True" ? 

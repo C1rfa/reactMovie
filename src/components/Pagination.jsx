@@ -1,5 +1,8 @@
 import React from 'react';
 
+import rightPic from './../img/right-arrow.svg';
+import leftPic from './../img/left-arrow.svg';
+
 import { MovieContext } from './../context';
 
 export const Pagination = props => {
@@ -37,18 +40,15 @@ export const Pagination = props => {
 
     
     for (let i = leftBound; i <= rightBound; i++ ) {
-        pages.push(<li className={ +currentPage === i ? "active red" : "waves-effect" } key={ i } onClick={ clickHanlder }>{ i }</li>);
+        pages.push(<li className={ +currentPage === i ? "active-page" : "page" } key={ i } onClick={ clickHanlder }>{ i }</li>);
     }
 
 
     return(
-        <div className="message">
-            <ul className="pagination">
-                <li className={ currentPage === 1 ? "disabled" : "waves-effect" } id="fastBackward" onClick={ clickHanlder }><i className="material-icons">chevron_left</i></li>
-                    { pages }
-                <li className={ currentPage === 1 ? "disabled" : "waves-effect" } id="fastForward" onClick={ clickHanlder }><i className="material-icons">chevron_right</i></li>
-            </ul> 
-        </div>
-        
+        <ul className="pagination">
+            <li className={ currentPage === 1 ? "disabled-page" : "page-backward" } id="fastBackward" onClick={ clickHanlder.bind(this) }><img className="page-icon" alt='backward' src={ leftPic }></img></li>
+                { pages }
+            <li className={ currentPage === countPage ? "disabled-page" : "page-forward" } id="fastForward" onClick={ clickHanlder.bind(this) }><img className="page-icon" alt='forward' src={ rightPic }></img></li>
+        </ul>   
     );
 };

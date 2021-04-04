@@ -2,6 +2,9 @@ import React from 'react';
 
 import { MovieContext } from './../context';
 
+import searchPic from './../img/magnifier.svg';
+
+
 export const Search = props => {
     const { searchText, searchType, changeSearchText, changeSearchType, sendRequest } = React.useContext(MovieContext);
 
@@ -29,45 +32,36 @@ export const Search = props => {
     };
 
     return(
-        <div className="row">
-            <form onSubmit={ submitHandler }>
-              <div className="row">
-                <div className="input-field col s12">
-                  <i className="material-icons prefix">search</i>
-                  <input placeholder="search" type="text" name="text" value={ searchText } onChange={ inputHandler } className="validate"/>
-                </div>
-                <p className="col s-6">
-                    <label>
-                      <input name="type" id="all" type="radio" onChange={ inputHandler } checked={ searchType === null }/> 
-                      <span>All</span>
-                    </label>
-                </p>
-                <p className="col s-6">
-                    <label>
-                      <input name="type" id="movie" type="radio" onChange={ inputHandler }/>
-                      <span>Movie</span>
-                    </label>
-                </p>
-                <p className="col s-6">
-                    <label>
-                      <input name="type" id="series" type="radio" onChange={ inputHandler }/>
-                      <span>Series</span>
-                    </label>
-                </p>
-                <p className="col s-6">
-                    <label>
-                      <input name="type" id="game" type="radio" onChange={ inputHandler }/>
-                      <span>Video Game</span>
-                    </label>
-                </p>
-              </div>
-              <div className="row">
-                    <button className="red btn waves-effect waves-light col s12" type="submit" name="action">
-                        Search
-                        <i className="material-icons right">search</i>
-                    </button>
-              </div>
-            </form>
-        </div>
-    );
+    <form className="search-form" onSubmit={ submitHandler }>
+      <div className="field-row">
+          <input placeholder="Type Something And Press Search" type="text" name="text" value={ searchText } onChange={ inputHandler }/>
+          <div className="search-icon-wrap">
+              <img className="search-icon" src={ searchPic } alt="search"/>
+          </div>
+      </div>
+      <div className="field-col">
+          <label>
+              <input name="type" id="all" type="radio" onChange={ inputHandler } checked={ searchType === null }/> 
+              <span>All</span>
+          </label>
+          <label>
+              <input name="type" id="movie" type="radio" onChange={ inputHandler }/>
+              <span>Movie</span>
+          </label>
+          <label>
+              <input name="type" id="series" type="radio" onChange={ inputHandler }/>
+              <span>Series</span>
+          </label>
+          <label>
+              <input name="type" id="game" type="radio" onChange={ inputHandler }/>
+              <span>Video Game</span>
+          </label>
+      </div>
+      <div className="field-row">
+          <button className="btn" type="submit" name="action">
+               Search
+          </button>
+      </div>
+    </form>
+  );
 };

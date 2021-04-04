@@ -1,14 +1,18 @@
 import React from 'react';
 
+import logo from './../img/clapperboard.svg'
+
+
 export const Header = () => {
   return(
-    <nav className="grey darken-4">
-        <div className="nav-wrapper">
-          <a href="#!" className="brand-logo"><i className="material-icons large">local_movies</i>Movie App on React</a>
-          <ul id="nav-mobile" className="right hide-on-med-and-down">
-            <li><a href="https://github.com/C1rfa/reactMovie/tree/movieProjectFunc">Repository</a></li>
-          </ul>
-        </div>
-    </nav>
+    <header className="main-header">
+      <div className="brand">
+        <img src={ logo } alt="logo"/>
+        <span className="brand-text">React Movie App</span>
+      </div>
+      <div className="repo-link">
+        <a href="https://github.com/C1rfa/reactMovie">Repo</a>
+      </div>
+    </header>
   );
 };
